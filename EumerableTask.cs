@@ -44,7 +44,7 @@ namespace PadawansTask15
         ///   {"a", "aa", "aaa" } => { 1, 2, 3 }
         ///   {"aa", "bb", "cc", "", "  ", null } => { 2, 2, 2, 0, 2, 0 }
         /// </example>
-        public IEnumerable<int> GetStringsLength(IEnumerable<string> data)
+        public  IEnumerable<int> GetStringsLength(IEnumerable<string> data)
         {
             if (data == null)
                 throw new ArgumentNullException();
@@ -73,7 +73,7 @@ namespace PadawansTask15
         ///   { 1, 2, 3, 4, 5 } => { 1, 4, 9, 16, 25 }
         ///   { -1, -2, -3, -4, -5 } => { 1, 4, 9, 16, 25 }
         /// </example>
-        public IEnumerable<long> GetSquareSequence(IEnumerable<int> data)
+        public  IEnumerable<long> GetSquareSequence(IEnumerable<int> data)
         {
             if (data == null)
                 throw new ArgumentNullException();
@@ -81,7 +81,7 @@ namespace PadawansTask15
             IEnumerator<int> ie = data.GetEnumerator();
             while (ie.MoveNext())   // пока не будет возвращено false
             {
-                list.Add(ie.Current * ie.Current);     // берем элемент на текущей позиции
+                list.Add((long)ie.Current * (long)ie.Current);     // берем элемент на текущей позиции
             }
             ie.Reset();
             return list;
@@ -114,8 +114,8 @@ namespace PadawansTask15
             IEnumerator<string> ie = data.GetEnumerator();
             while (ie.MoveNext())   // пока не будет возвращено false
             {
-                if (prefix == null)
-                    throw new ArgumentNullException();
+                if (ie.Current == null)
+                    continue;
                 if (prefix == "")
                 {
                     if (ie.Current == null)
@@ -123,7 +123,10 @@ namespace PadawansTask15
                     list.Add(ie.Current);
                     continue;
                 }
-                if(ie.Current.Contains(prefix))
+                //if(ie.Current.Substring(0,prefix.Length) == prefix)
+                if (ie.Current.Length < prefix.Length)
+                    continue;
+                if (string.Equals(ie.Current.Substring(0, prefix.Length), prefix, StringComparison.OrdinalIgnoreCase))
                     list.Add(ie.Current);     // берем элемент на текущей позиции
             }
             ie.Reset();
@@ -187,11 +190,11 @@ namespace PadawansTask15
         /// </example>
         public int GetSumOfAllIntegers(object[] data)
         {
-            if (data == null)
-                throw new ArgumentNullException();
             int res = 0;
             foreach (object i in data)
             {
+                if (i == null)
+                    continue;
                 if (i.GetType().Equals(typeof(int)))
                     res += (int)i;
             }
