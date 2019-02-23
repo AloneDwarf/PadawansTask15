@@ -114,8 +114,6 @@ namespace PadawansTask15
             IEnumerator<string> ie = data.GetEnumerator();
             while (ie.MoveNext())   // пока не будет возвращено false
             {
-                if (ie.Current == null)
-                    continue;
                 if (prefix == "")
                 {
                     if (ie.Current == null)
@@ -123,6 +121,8 @@ namespace PadawansTask15
                     list.Add(ie.Current);
                     continue;
                 }
+                if (ie.Current == null)
+                    continue;
                 //if(ie.Current.Substring(0,prefix.Length) == prefix)
                 if (ie.Current.Length < prefix.Length)
                     continue;
