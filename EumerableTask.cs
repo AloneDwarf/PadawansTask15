@@ -124,10 +124,8 @@ namespace PadawansTask15
                 if (ie.Current == null)
                     continue;
                 //if(ie.Current.Substring(0,prefix.Length) == prefix)
-                if (ie.Current.Length < prefix.Length)
-                    continue;
-                if (string.Equals(ie.Current.Substring(0, prefix.Length), prefix, StringComparison.OrdinalIgnoreCase))
-                    list.Add(ie.Current);     // берем элемент на текущей позиции
+                if (ie.Current.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                    list.Add(ie.Current);
             }
             ie.Reset();
             return list;
