@@ -106,26 +106,22 @@ namespace PadawansTask15
         /// </example>
         public IEnumerable<string> GetPrefixItems(IEnumerable<string> data, string prefix)
         {
-            if (data == null)
+            if (data == null || prefix == null)
                 throw new ArgumentNullException();
-            if (prefix == null)
-                throw new ArgumentNullException();
-            List<string> list = new List<string>();
-            IEnumerator<string> ie = data.GetEnumerator();
-            while (ie.MoveNext())   // пока не будет возвращено false
+            List<string> prefixItems = new List<string>();
+            foreach (string item in data)
             {
-                if (ie.Current == null) continue;
-                if (prefix == "" && ie.Current != null)
+                if (item == null) continue;
+                if (prefix == string.Empty && item != null)
                 {
-                    list.Add(ie.Current);
+                    prefixItems.Add(item);
                     continue;
                 }
                 //if(ie.Current.Substring(0,prefix.Length) == prefix)
-                if (ie.Current.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
-                    list.Add(ie.Current);
+                if (item.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
+                    prefixItems.Add(item);
             }
-            ie.Reset();
-            return list;
+            return prefixItems;
             // TODO : Implement GetPrefixItems
             //throw new NotImplementedException();
         }
