@@ -114,15 +114,12 @@ namespace PadawansTask15
             IEnumerator<string> ie = data.GetEnumerator();
             while (ie.MoveNext())   // пока не будет возвращено false
             {
-                if (prefix == "")
+                if (ie.Current == null) continue;
+                if (prefix == "" && ie.Current != null)
                 {
-                    if (ie.Current == null)
-                        continue;
                     list.Add(ie.Current);
                     continue;
                 }
-                if (ie.Current == null)
-                    continue;
                 //if(ie.Current.Substring(0,prefix.Length) == prefix)
                 if (ie.Current.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase))
                     list.Add(ie.Current);
